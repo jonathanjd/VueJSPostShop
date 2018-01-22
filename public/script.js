@@ -14,9 +14,21 @@ new Vue({
         ],
 
         cart: [],
+
+        search: ''
     },
 
     methods: {
+
+        onSubmit(){
+
+            this.$http
+                .get('/search/'.contact('98s'))
+                .then( response => {
+                    console.log(response);
+                });
+
+        },
 
         addItem(index){
             this.total += PRICE;
