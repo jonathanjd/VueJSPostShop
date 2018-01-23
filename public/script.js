@@ -45,16 +45,18 @@ new Vue({
 
         onSubmit(){
 
-            this.items = [];
-            this.loading = true;
-            this.$http
-                .get('/search/'.concat(this.newSearch))
-                .then( response => {
-                    this.lastSearch = this.newSearch;
-                    this.result = response.data;
-                    this.appendItems();
-                    this.loading = false;
+            if (this.newSearch.length) {
+                this.items = [];
+                this.loading = true;
+                this.$http
+                    .get('/search/'.concat(this.newSearch))
+                    .then( response => {
+                        this.lastSearch = this.newSearch;
+                        this.result = response.data;
+                        this.appendItems();
+                        this.loading = false;
                 });
+            }
 
         },
 
