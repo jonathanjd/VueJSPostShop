@@ -8,24 +8,31 @@ new Vue({
 
         total: 0,
         items: [
-            { id: 1,title: 'Item 1' },
-            { id: 2,title: 'Item 2' },
-            { id: 3,title: 'Item 3' },
         ],
 
         cart: [],
 
-        search: ''
+        newSearch: 'anime',
+
+        lastSearch: '',
+
+        loading: false,
+
+        price: PRICE
     },
 
     methods: {
 
         onSubmit(){
 
+            this.items = [];
+            this.loading = true;
             this.$http
-                .get('/search/'.contact('98s'))
+                .get('/search/'.concat(this.newSearch))
                 .then( response => {
-                    console.log(response);
+                    this.lastSearch = this.newSearch;
+                    this.items = response.data;
+                    this.loading = false;
                 });
 
         },
@@ -84,6 +91,12 @@ new Vue({
             return '$'.concat(price.toFixed(2));
         },
 
-    }
+    },
+
+    mounted(){
+
+        this.onSubmit();
+
+    },
 
 });
